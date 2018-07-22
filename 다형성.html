@@ -1,0 +1,56 @@
+
+<script>
+// each 만들기
+    //1. _each로 _map, _filter 중복제거
+
+    //2. 외부 다형성
+        //1. array_like, arguments, document.querySelectorAll
+
+console.log(
+    [1,2,3].map(function(val){
+        return val*2;
+    })
+);
+console.log(
+    [1,2,3,4].filter(function(val){
+        return val%2;
+    })
+);
+
+//이미 존재하는 map과 filter를 새로 만들어 사용 하는 이유:
+//기본적으로 정의되어 있는 map과 filter는 array 타입에서만 사용이 가능
+//다음과 같이 직접 정의한 _map, _filter 함수에서는 
+
+function _filter(list,predi){
+    var new_list = [];
+    _each(list, function(val){
+        if(predi(val))  new_list.push(val);
+    });
+    return new_list;
+}
+function _map(list,mapper){
+    var new_list = [];
+    _each(list,function(val){
+        new_list.push(mapper(val))
+    });
+    return new_list;
+}
+function _each(list,iter){
+    for(var i=0;i<list.length;i++){
+        iter(list[i]);
+    }
+    return list;
+}
+
+//array 타입이 아닌 객체(__proto__:nodeList) 임에도 맵 형태로 사용 가능
+console.log(
+    _map(document.querySelectorAll('*'),function(node){
+        return node.nodeName;
+    })
+);
+
+
+
+ //3. 내부 다형성
+
+</script>
