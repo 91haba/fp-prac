@@ -85,8 +85,12 @@ var users = [
     console.log( users[10].name );
     //undefined
     console.log(_get(users[0], 'name'));
+    console.log(_get(users[0], 'name'));
     //curryr 적용
     console.log(_get('name')(users[10]));
+   
+//
+
 
 
     
