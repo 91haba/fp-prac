@@ -35,3 +35,13 @@
     f1(1)
 
     console.log(f1(1));
+
+    //2. _go: pipe 함수인데 즉시 실행되는 pipe 함수임
+    //첫번째 인자로는 인자를 받고 두번쨰 부터는 함수를 받음
+
+    _go(1,
+        function(a) {return a + 1;},
+        function(a) {return a * 2;},
+        function(a) {return a * a;},
+        console.log()
+    )
