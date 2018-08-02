@@ -59,6 +59,7 @@ var users = [
     var sub = _curryr(function(a,b){
         return a-b;
     });
+    console.log(sub)
 
     //5
     console.log( sub(10,5) );
@@ -66,7 +67,7 @@ var users = [
     var sub10 = sub(10);
 
     //-5
-    console.log( sub10(5) );
+    console.log( sub10 );
 
     //_curryr, curry와는 달리 인자를 오른쪽에서부터 적용
 
@@ -90,6 +91,8 @@ var users = [
     console.log(_get('name')(users[10]));
    
 //
+
+
 
 
 
