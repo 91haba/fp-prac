@@ -117,7 +117,7 @@
     }
     //curry
     function _curry(fn){
-        return function(a){
+        return function(a,b){
             //인자가 2개 들어오면 return하지 않고 즉시실행 하는 코드 삽입
             //인자가 1개씩 들어오면 함수 실행을 미룸
             /*if (arguments.length == 2) return fn(a, b);
@@ -183,13 +183,52 @@
         _map([1,2,3],function(val){return val * 2;}));
 
     //map과 filter에 curryr 적용 
-    var _map = _curryr(_map),
-        _filter = _curry(_filter);
+    var _map = _curryr(_map);
+    var _filter = _curryr(_filter);
     //이를 _go 함수에 적용하여 설명하면
     //_map에 함수를 하나 넣은 결과가 함수이고 [1,2,3]이 _go함수에서의 인자인(users) 라고 생각해보았을 때
     //아래의 curryr을 적용한 _map이 어떤식으로 _go에 적용될지 예측해볼 수 있음
     console.log(
         _map(function(val){return val*2;})([1,2,3]));
 
-    
-    //
+
+    //_go에 curryr 적용 결과
+
+    //기존
+    _go(users, //users가 들어오면
+        function(users) {
+            //users를 filter 한 것을
+            return _filter(users,function(user){
+                return user.age >= 30;
+            });
+        },
+        function(users) { //filter된 users를 받아옴
+            return _map(users, _get('name'));
+        },
+        //console.log에 담아줌
+    console.log);
+
+    //refactoring
+    _go(users, 
+        //_filter에 function(user){...} 함수를 적용할 예정인 새로운 함수를 return
+        //이 함수는 users를 인자로 받음(한개만)
+        _filter(function(user){ return user.age >= 30;}),
+        //_map도 같은 방식으로 다음과 같이변경 가능
+        _map(_get('name')),
+        //console.log에 담아줌
+    console.log);
+
+    _go(users,
+    _filter(users => users.age >= 30),
+    _map(_get('age')),
+    console.log);
+
+    //위를 화살표함수로 표현하면
+    _go(users,
+    _filter(user => user.age < 30),
+    _map(user => user.age),
+    console.log);
+    //함수형 프로그래밍!! =
+    // 순수함수들을 평가시점을 다루면서 조합성을 강조하는 프로그래밍
+    //추사화의 단위를 함수로 하는 프로그래밍!
+ 
