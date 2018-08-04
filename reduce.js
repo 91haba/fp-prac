@@ -70,3 +70,29 @@ console.log(
  //6
 //==> add(add(1,2),3);
 
+//rest -> 
+//_reduce 함수 내에서 argument나 jquery 객체나, nodelist를 비롯한 다양한 arraylike 객체를 앞부분을 slice 할 수있게함
+
+var slice = Array.prototype.slice;
+function _rest(list, num) {
+    return slice.call(list, num || 1);//넘겨준 값이 없으면 기본값 1
+}
+
+//이를 이용해 reduce 함수를 다음과 같이 변경가능
+function __reduce(list,iter,meme) {
+
+    if (arguments.length == 2) {
+        memo = list[0];
+        list = _rest(list);
+    }
+    //이처럼 reduce 함수를 수정해주면
+    //memo가 인자로 들어오지 않아도 아래의 코드가 정상적으로 실행됨
+    _each(list, function(val){
+        memo = iter(memo,val);
+    })
+}
+
+//확인
+console.log(
+    __reduce([1,2,3], add);
+)
