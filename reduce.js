@@ -94,5 +94,9 @@ function __reduce(list,iter,meme) {
 
 //확인
 console.log(
-    __reduce([1,2,3], add);
-)
+    __reduce([1,2,3], add)
+); //6
+
+console.log (
+    __reduce([1,2,3,4],add, 0)
+); //20
