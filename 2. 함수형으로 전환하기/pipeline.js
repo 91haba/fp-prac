@@ -149,7 +149,8 @@
         _get('age'))
     );*/
 
-    //위와 같은 함수를 
+
+    // _go 함수를 이용하여 위와 같은 결과를 출력해보면 
     _go(users, //users가 들어오면
         function(users) {
             //users를 filter 한 것을
@@ -158,8 +159,37 @@
             });
         },
         function(users) { //filter된 users를 받아옴
-            return _map(users,_get('name'));
+            return _map(users, _get('name'));
         },
-        //console.log까지 담아줌
-        console.log
-    );
+        //console.log에 담아줌
+    console.log);
+    _go(users, //users가 들어오면
+        function(users) {
+            //users를 filter 한 것을
+            return _filter(users,function(user){
+                return user.age < 30;
+            });
+        },
+        function(users) { //filter된 users를 받아옴
+            return _map(users, _get('age'));
+        },
+        //console.log에 담아줌
+    console.log);
+
+    //curryr을 이용하여 위 함수를 더 간결하게 refactoring
+
+    //아래는 두 console.log는 같은 결과를 출력
+    console.log(
+        _map([1,2,3],function(val){return val * 2;}));
+
+    //map과 filter에 curryr 적용 
+    var _map = _curryr(_map),
+        _filter = _curry(_filter);
+    //이를 _go 함수에 적용하여 설명하면
+    //_map에 함수를 하나 넣은 결과가 함수이고 [1,2,3]이 _go함수에서의 인자인(users) 라고 생각해보았을 때
+    //아래의 curryr을 적용한 _map이 어떤식으로 _go에 적용될지 예측해볼 수 있음
+    console.log(
+        _map(function(val){return val*2;})([1,2,3]));
+
+    
+    //
